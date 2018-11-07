@@ -13967,6 +13967,7 @@ window.axios = __webpack_require__(6);
 
 __webpack_require__(40);
 __webpack_require__(48);
+__webpack_require__(54);
 
 /***/ }),
 /* 17 */
@@ -36243,24 +36244,6 @@ var Users = function (_React$Component) {
             });
         }
     }, {
-        key: 'deleteUser',
-        value: function deleteUser(user) {
-            console.log(user);
-
-            var $this = this;
-            axios.delete('/api/users/' + user.id).then(function (response) {
-                console.log(response);
-
-                var newState = $this.state.data.slice();
-                newState.splice(newState.indexOf(user), 1);
-                $this.setState({
-                    data: newState
-                });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -36318,41 +36301,7 @@ var Users = function (_React$Component) {
                         'tbody',
                         null,
                         this.state.data.map(function (user, i) {
-                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
-                                { key: user.id },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.id
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.name
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    user.email
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'td',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'a',
-                                        { href: '', className: 'btn btn-primary btn-sm' },
-                                        'Edit'
-                                    ),
-                                    '|',
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'a',
-                                        { href: 'javascript:;', className: 'btn btn-danger btn-sm',
-                                            onClick: _this2.deleteUser.bind(_this2, user) },
-                                        ' Delete'
-                                    )
-                                )
-                            );
+                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(UserRow, { key: i, i: i, user: user, object: _this2 });
                         })
                     )
                 )
@@ -36365,6 +36314,77 @@ var Users = function (_React$Component) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Users);
 
+var UserRow = function (_React$Component2) {
+    _inherits(UserRow, _React$Component2);
+
+    function UserRow() {
+        _classCallCheck(this, UserRow);
+
+        return _possibleConstructorReturn(this, (UserRow.__proto__ || Object.getPrototypeOf(UserRow)).apply(this, arguments));
+    }
+
+    _createClass(UserRow, [{
+        key: 'deleteUser',
+        value: function deleteUser(user, object) {
+            console.log(user);
+            console.log(object);
+
+            var $this = object;
+            axios.delete('/api/users/' + user.id).then(function (response) {
+                console.log(response);
+
+                var newState = $this.state.data.slice();
+                newState.splice(newState.indexOf(user), 1);
+                $this.setState({
+                    data: newState
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'tr',
+                { key: this.props.user.id },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    this.props.user.id
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    this.props.user.name
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    this.props.user.email
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'td',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: "/users/" + this.props.user.id + "/edit", className: 'btn btn-primary btn-sm' },
+                        'Edit'
+                    ),
+                    '|',
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'a',
+                        { href: 'javascript:;', className: 'btn btn-danger btn-sm',
+                            onClick: this.deleteUser.bind(this, this.props.user, this.props.object) },
+                        ' Delete'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return UserRow;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 if (document.getElementById('app')) {
     __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Users, null), document.getElementById('app'));
@@ -58291,6 +58311,173 @@ if (document.getElementById('create')) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var Edit = function (_React$Component) {
+    _inherits(Edit, _React$Component);
+
+    function Edit() {
+        _classCallCheck(this, Edit);
+
+        var _this = _possibleConstructorReturn(this, (Edit.__proto__ || Object.getPrototypeOf(Edit)).call(this));
+
+        _this.state = {
+            name: '',
+            email: '',
+            password: ''
+        };
+        return _this;
+    }
+
+    _createClass(Edit, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            console.log(this.props.id);
+            var id = this.props.id;
+
+            axios.get('/api/users/' + id).then(function (response) {
+                console.log(response.data);
+                var user = response.data;
+                _this2.setState({
+                    name: user.name,
+                    email: user.email,
+                    password: user.password
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'handleNameChange',
+        value: function handleNameChange(e) {
+            this.setState({
+                name: e.target.value
+            });
+        }
+    }, {
+        key: 'handleEmailChange',
+        value: function handleEmailChange(e) {
+            this.setState({
+                email: e.target.value
+            });
+        }
+    }, {
+        key: 'handlePasswordChange',
+        value: function handlePasswordChange(e) {
+            this.setState({
+                password: e.target.value
+            });
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+            console.log(this.state);
+
+            axios.post('/api/users', this.state).then(function (response) {
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'col-md-8 offset-md-2' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h2',
+                    { className: 'mt-3' },
+                    'Add New User'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    { action: '', className: '', onSubmit: this.handleSubmit.bind(this) },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'name' },
+                            'Name:'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'name', id: 'name', className: 'form-control', value: this.state.name,
+                            onChange: this.handleNameChange.bind(this) })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'email' },
+                            'Email:'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: 'email', id: 'email', className: 'form-control', value: this.state.email,
+                            onChange: this.handleEmailChange.bind(this) })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'password' },
+                            'Password:'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'password', name: 'password', id: 'password', className: 'form-control',
+                            value: this.state.password, onChange: this.handlePasswordChange.bind(this) })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { type: 'submit', className: 'btn btn-info' },
+                            'Update'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Edit;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Edit);
+
+
+if (document.getElementById('edit')) {
+    var id = $("#edit").data("id");
+
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Edit, { id: id }), document.getElementById('edit'));
+}
 
 /***/ })
 /******/ ]);

@@ -9,3 +9,4 @@ window.axios = require('axios');
 
 require('./components/Users');
 require('./components/Create');
+require('./components/Edit');
