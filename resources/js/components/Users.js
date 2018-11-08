@@ -5,19 +5,48 @@ export default class Users extends React.Component {
     constructor() {
         super();
         this.state = {
-            data: []
+            data: [],
+            url: '/api/users',
+            pagination: [],
         }
     }
 
     componentWillMount() {
+        this.fetchUsers()
+    }
+
+    fetchUsers() {
         let $this = this;
 
-        axios.get('/api/users').then(response => {
+        axios.get(this.state.url).then(response => {
             $this.setState({
-                data: response.data
+                data: $this.state.data.length > 0 ? $this.state.data.concat(response.data.data) : response.data.data,
+                url: response.data.next_page_url
             })
+            $this.makePagination(response.data)
         }).catch(error => {
             console.log(error)
+        })
+    }
+
+    loadMore() {
+        this.setState({
+            url: this.state.pagination.next_page_url
+        })
+
+        this.fetchUsers()
+    }
+
+    makePagination(data) {
+        let pagination = {
+            current_page: data.current_page,
+            last_page: data.last_page,
+            previous_page: data.previous_page,
+            next_page_url: data.next_page_url,
+        }
+
+        this.setState({
+            pagination: pagination,
         })
     }
 
@@ -46,6 +75,8 @@ export default class Users extends React.Component {
                     }
                     </tbody>
                 </table>
+
+                <button className="btn btn-default" onClick={this.loadMore.bind(this)}>Load More Results</button>
             </div>
         )
     }
@@ -77,7 +108,7 @@ class UserRow extends React.Component {
                 <td>{this.props.user.name}</td>
                 <td>{this.props.user.email}</td>
                 <td>
-                    <a href={"/users/"+this.props.user.id+"/edit"} className="btn btn-primary btn-sm">Edit</a>|
+                    <a href={"/users/" + this.props.user.id + "/edit"} className="btn btn-primary btn-sm">Edit</a>|
                     <a href="javascript:;" className="btn btn-danger btn-sm"
                        onClick={this.deleteUser.bind(this, this.props.user, this.props.object)}> Delete</a>
                 </td>
